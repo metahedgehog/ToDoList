@@ -7,8 +7,9 @@
 </head>
 <body>
 <h2>What should i do?</h2>
-<c:set var="taskList" value="${sessionScope.get(\"taskList\")}" scope="application"/>
-<jsp:useBean id='task' class='com.app.todo.ToDoTask'/>
+<c:set var="taskList" value="${sessionScope.get(\"taskList\")}" scope="page"/>
+<jsp:useBean id='ToDoTask' class='com.app.todo.ToDoTask' scope="session"/>
+<jsp:useBean id='ToDoServlet' class='com.app.todo.ToDoServlet' scope="session"/>
 <c:choose>
     <c:when test="${fn:length(taskList) == 0}">
         <h3>There are no tasks.</h3>
@@ -20,14 +21,17 @@
                 <th class="smaller">Category</th>
                 <th class="smaller">Completed</th>
             </tr>
-            <c:forEach var="task" items="${taskList}">
+                <form action="todo" method="get">
+                <c:forEach var="task" items="${taskList}">
                 <tr>
                     <td><c:out value="${task.taskName}"/></td>
                     <td><c:out value="${task.taskCategory}"/></td>
-                    <td><input type="checkbox" name="signed" value="<%=task.isCompleted() %>"/></td>
+                    <td><input type="checkbox" name="completed" value="${task.taskName}"></td>
                 </tr>
-            </c:forEach>
+                </c:forEach>
         </table>
+        <td align="right" colspan="2"><input type="submit" class="button" value="Update Tasks"/></td>
+        </form>
     </c:otherwise>
 </c:choose>
 <form action="todo" method="POST">
