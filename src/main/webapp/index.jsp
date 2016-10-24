@@ -8,8 +8,6 @@
 <body>
 <h2>What should i do?</h2>
 <c:set var="taskList" value="${sessionScope.get(\"taskList\")}" scope="page"/>
-<jsp:useBean id='ToDoTask' class='com.app.todo.ToDoTask' scope="session"/>
-<jsp:useBean id='ToDoServlet' class='com.app.todo.ToDoServlet' scope="session"/>
 <c:choose>
     <c:when test="${fn:length(taskList) == 0}">
         <h3>There are no tasks.</h3>
@@ -30,7 +28,7 @@
                 </tr>
                 </c:forEach>
         </table>
-        <td align="right" colspan="2"><input type="submit" class="button" value="Update Tasks"/></td>
+        <td align="right" colspan="3"><input type="submit" class="button" value="Update Tasks"/></td>
         </form>
     </c:otherwise>
 </c:choose>
